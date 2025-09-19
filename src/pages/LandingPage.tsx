@@ -14,7 +14,7 @@ const LandingPage = () => {
             <div className="w-8 h-8 gradient-primary rounded-full flex items-center justify-center">
               <Heart className="w-4 h-4 text-white" />
             </div>
-            <span className="text-2xl font-bold text-foreground">Clarity Connect</span>
+            <span className="text-2xl font-bold text-foreground">MindEasy</span>
           </div>
           <div className="flex space-x-4">
             <Link to="/signin">
@@ -169,7 +169,7 @@ const LandingPage = () => {
             <div className="w-6 h-6 gradient-primary rounded-full flex items-center justify-center">
               <Heart className="w-3 h-3 text-white" />
             </div>
-            <span className="text-lg font-semibold text-foreground">Clarity Connect</span>
+            <span className="text-lg font-semibold text-foreground">MindEasy</span>
           </div>
           <p className="text-muted-foreground mb-4">
             Your mental health matters. You're not alone.
