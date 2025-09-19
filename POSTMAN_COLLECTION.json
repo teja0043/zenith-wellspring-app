@@ -1,0 +1,511 @@
+{
+  "info": {
+    "name": "Clarity Connect API",
+    "description": "Complete API collection for Clarity Connect mental health platform",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_token", 
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_code",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "User Registration",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"securepassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@example.com\",\n  \"password\": \"securepassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Gate Verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"adminCode\": \"admin4u\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/verify-gate-code",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "verify-gate-code"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Assessments",
+      "item": [
+        {
+          "name": "Submit PHQ-9",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answers\": [1, 2, 1, 3, 0, 1, 2, 0, 0],\n  \"userTimezone\": \"America/New_York\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/assessments/phq",
+              "host": ["{{base_url}}"],
+              "path": ["assessments", "phq"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit GAD-7",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answers\": [2, 1, 2, 1, 0, 1, 1],\n  \"userTimezone\": \"America/New_York\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/assessments/gad",
+              "host": ["{{base_url}}"],
+              "path": ["assessments", "gad"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Mood Tracking",
+      "item": [
+        {
+          "name": "Submit Mood Entry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"moodValue\": 6,\n  \"note\": \"Feeling good after talking to a friend\",\n  \"userTimezone\": \"America/New_York\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/mood",
+              "host": ["{{base_url}}"],
+              "path": ["mood"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Mood History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/mood/history?days=30",
+              "host": ["{{base_url}}"],
+              "path": ["mood", "history"],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "30"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Counseling Booking",
+      "item": [
+        {
+          "name": "Get Available Slots",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/slots/available?startDate=2024-01-20&endDate=2024-01-27",
+              "host": ["{{base_url}}"],
+              "path": ["slots", "available"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-20"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-01-27"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Book Session (Atomic)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slotId\": \"slot_123456\",\n  \"userTimezone\": \"America/New_York\",\n  \"notes\": \"First counseling session\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/bookings",
+              "host": ["{{base_url}}"],
+              "path": ["bookings"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AI Chatbot",
+      "item": [
+        {
+          "name": "Send Message to Chatbot",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"I'm feeling really stressed about my upcoming exams\",\n  \"conversationId\": \"conv_123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/chatbot/message",
+              "host": ["{{base_url}}"],
+              "path": ["chatbot", "message"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Community",
+      "item": [
+        {
+          "name": "Create Community Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Just wanted to share that things do get better. Hang in there everyone!\",\n  \"category\": \"Encouragement\",\n  \"tags\": [\"support\", \"positivity\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/community/posts",
+              "host": ["{{base_url}}"],
+              "path": ["community", "posts"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Community Feed",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/community/posts?page=1&limit=20&category=all",
+              "host": ["{{base_url}}"],
+              "path": ["community", "posts"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit", 
+                  "value": "20"
+                },
+                {
+                  "key": "category",
+                  "value": "all"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Metrics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/admin/metrics?startDate=2024-01-01&endDate=2024-01-31",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "metrics"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-01-31"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Counseling Slot",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Individual Counseling Session\",\n  \"description\": \"One-on-one therapy session\",\n  \"datetimeUTC\": \"2024-01-25T14:00:00Z\",\n  \"capacity\": 1,\n  \"type\": \"Video\",\n  \"counselorInfo\": {\n    \"name\": \"Dr. Sarah Chen\",\n    \"specializations\": [\"Anxiety\", \"Depression\", \"Student Stress\"],\n    \"bio\": \"Licensed therapist specializing in student mental health\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/slots",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "slots"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Direct Messaging",
+      "item": [
+        {
+          "name": "Send Direct Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"receiverCode\": \"U-ADMIN001\",\n  \"content\": \"Hi, I need some guidance about my recent assessment results\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/messages",
+              "host": ["{{base_url}}"],
+              "path": ["messages"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Crisis Support",
+      "item": [
+        {
+          "name": "Get Helplines by Location",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/crisis/helplines?country=US&region=California",
+              "host": ["{{base_url}}"],
+              "path": ["crisis", "helplines"],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "US"
+                },
+                {
+                  "key": "region",
+                  "value": "California"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Report Crisis Flag",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type", 
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userCode\": \"U-A7X9M2K8\",\n  \"reason\": \"High PHQ-9 score with suicidal ideation\",\n  \"severity\": \"high\",\n  \"source\": \"assessment\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/flags",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "flags"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
